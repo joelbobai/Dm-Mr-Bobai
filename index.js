@@ -1,6 +1,9 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const nodemailer = require("nodemailer");
+const nodemailer =
+  process.env.NODE_ENV === "test"
+    ? require("nodemailer-mock")
+    : require("nodemailer");
 const smtpTransport = require("nodemailer-smtp-transport");
 const cors = require("cors");
 
@@ -162,4 +165,8 @@ app.post("/bobai/sendmail", async (req, res) => {
   }
 });
 
-app.listen(PORT, () => console.log(`Server Port: ${PORT}`));
+if (process.env.NODE_ENV !== "test") {
+  app.listen(PORT, () => console.log(`Server Port: ${PORT}`));
+}
+
+module.exports = app;

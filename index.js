@@ -51,7 +51,7 @@ app.post("/bobai/sendmail", async (req, res) => {
 
     let mailOptions = await {
       from: "Mr Bobai <joelisaiahbobai@gmail.com>",
-      to: ["joelisaiahbobai@gmail.com>", "joelbobai43@gmail.com"],
+      to: ["joelisaiahbobai@gmail.com", "joelbobai43@gmail.com"],
       subject: `Message from ${
         name[0].toUpperCase() + name.slice(1)
       } : ${subject}`,

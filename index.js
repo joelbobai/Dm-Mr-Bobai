@@ -49,7 +49,7 @@ app.post("/bobai/sendmail", async (req, res) => {
     email = email.trim();
     name = name.trim();
 
-    let mailOptions = await {
+    let mailOptions = {
       from: "Mr Bobai <joelisaiahbobai@gmail.com>",
       to: ["joelisaiahbobai@gmail.com", "joelbobai43@gmail.com"],
       subject: `Message from ${
@@ -136,27 +136,16 @@ app.post("/bobai/sendmail", async (req, res) => {
       </html>
       `,
     };
-    await transporter.sendMail(mailOptions, function (error, info) {
-      if (error) {
-        res.status(500).json({
-          status: "FAILED",
-          message: "An error occurred. Check your network and try again",
-          error: error,
-        });
-      } else {
-        res.status(200).json({
-          status: "Message Sent",
-          message:
-            "Thanks for your message! I'll get back to you within 24 hours",
-          error: error,
-        });
-      }
+    await transporter.sendMail(mailOptions);
+    res.status(200).json({
+      status: "Message Sent",
+      message: "Thanks for your message! I'll get back to you within 24 hours",
     });
   } catch (error) {
     console.log(error);
     res.status(500).json({
       status: "FAILED",
-      message: "wahala, pls try again",
+      message: "An error occurred. Check your network and try again",
       error: error,
     });
   }
